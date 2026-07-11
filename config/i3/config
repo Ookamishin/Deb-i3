@@ -1,28 +1,35 @@
 # =============================================================
-#  i3 config - Nord theme
-#  Debian (Trixie) - clean custom setup
+#  i3 config - Cyberpunk Neon
+#  Debian 13 (Trixie) - Hyper-V VM optimized
 # =============================================================
 
 # Modifier: Super (Windows key)
 set $mod Mod4
 
-# Fonts for window titles and bar
+# Font for window titles
 font pango:JetBrainsMono Nerd Font 10
 
-# --- Nord palette -------------------------------------------
-set $nord0  #2E3440
-set $nord1  #3B4252
-set $nord2  #434C5E
-set $nord3  #4C566A
-set $nord4  #D8DEE9
-set $nord6  #ECEFF4
-set $nord7  #8FBCBB
-set $nord8  #88C0D0
-set $nord9  #81A1C1
-set $nord10 #5E81AC
-set $nord11 #BF616A
+# =============================================================
+#  Cyberpunk Neon Palette
+#  Base: void black · Accents: cyan/pink/purple neons
+# =============================================================
+set $cp-bg      #0a0e14
+set $cp-bg-alt  #111820
+set $cp-bg-hl   #1a2430
+set $cp-fg      #c0caf5
+set $cp-fg-alt  #565f89
+set $cp-fg-br   #e0e8ff
+set $cp-cyan    #00f0ff
+set $cp-pink    #ff007f
+set $cp-purple  #7c3aed
+set $cp-gold    #ffd700
+set $cp-green   #00ff41
+set $cp-red     #ff0040
+set $cp-orange  #ff6600
 
-# --- Default apps -------------------------------------------
+# =============================================================
+#  Default apps
+# =============================================================
 set $term kitty
 set $filemanager thunar
 set $browser firefox-esr
@@ -39,15 +46,15 @@ exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
 exec --no-startup-id lxpolkit
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/nord.png
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/cyberpunk.png
 exec --no-startup-id xset s 600 600
-exec --no-startup-id xss-lock -- i3lock -c 2E3440
+exec --no-startup-id xss-lock -- i3lock -c 0a0e14
 
 # =============================================================
-#  Gaps & borders
+#  Gaps & borders — breathing room for the neon glow
 # =============================================================
-gaps inner 8
-gaps outer 4
+gaps inner 10
+gaps outer 6
 default_border pixel 2
 default_floating_border pixel 2
 smart_gaps on
@@ -56,26 +63,22 @@ hide_edge_borders smart
 # =============================================================
 #  Keybindings
 # =============================================================
-# Terminal, launcher, apps
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $launcher
 bindsym $mod+e exec $filemanager
 bindsym $mod+b exec $browser
 bindsym $mod+q kill
 
-# Screenshots (flameshot)
 bindsym Print exec --no-startup-id flameshot full
 bindsym $mod+Print exec --no-startup-id flameshot gui
 
-# Lock screen
-bindsym $mod+shift+x exec --no-startup-id i3lock -c 2E3440
+bindsym $mod+shift+x exec --no-startup-id i3lock -c 0a0e14
 
-# Reload / restart / exit
 bindsym $mod+shift+c reload
 bindsym $mod+shift+r restart
-bindsym $mod+shift+e exec "i3-nagbar -t warning -m 'Salir de i3?' -B 'Si, salir' 'i3-msg exit'"
+bindsym $mod+shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes, exit' 'i3-msg exit'"
 
-# --- Focus (vim-like + arrows) ------------------------------
+# --- Focus (vim + arrows) ---
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -85,7 +88,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# --- Move windows -------------------------------------------
+# --- Move windows ---
 bindsym $mod+shift+h move left
 bindsym $mod+shift+j move down
 bindsym $mod+shift+k move up
@@ -95,7 +98,7 @@ bindsym $mod+shift+Down move down
 bindsym $mod+shift+Up move up
 bindsym $mod+shift+Right move right
 
-# --- Layout -------------------------------------------------
+# --- Layout ---
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+g layout toggle split
@@ -160,7 +163,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # =============================================================
-#  Media & brightness keys
+#  Media keys
 # =============================================================
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -170,13 +173,14 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # =============================================================
-#  Window colors (Nord)
-#          border      bg        text      indicator  child_border
-client.focused          $nord9  $nord9   $nord6   $nord8   $nord9
-client.focused_inactive $nord3  $nord1   $nord4   $nord3   $nord3
-client.unfocused        $nord1  $nord0   $nord4   $nord1   $nord1
-client.urgent           $nord11 $nord11  $nord6   $nord11  $nord11
-client.placeholder      $nord0  $nord0   $nord4   $nord0   $nord0
-client.background       $nord0
+#  Window colors — Cyberpunk glow
+#  Format: border  background  text  indicator  child_border
+# =============================================================
+client.focused          $cp-cyan    $cp-bg-alt   $cp-fg-br   $cp-purple   $cp-cyan
+client.focused_inactive $cp-bg-hl   $cp-bg       $cp-fg-alt  $cp-bg-hl    $cp-bg-hl
+client.unfocused        $cp-bg-alt  $cp-bg       $cp-fg-alt  $cp-bg-alt   $cp-bg-alt
+client.urgent           $cp-red     $cp-red      $cp-fg-br   $cp-red      $cp-red
+client.placeholder      $cp-bg      $cp-bg       $cp-fg-alt  $cp-bg       $cp-bg
+client.background       $cp-bg
 
 # No default i3bar (we use polybar)

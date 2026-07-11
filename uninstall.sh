@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # =============================================================
-#  i3-nord-dotfiles uninstaller
-#  Elimina las configuraciones desplegadas y (opcional) los
-#  paquetes instalados. NO borra tus backups.
+#  i3-cyberpunk-dotfiles uninstaller
+#  Removes deployed configs and (optionally) packages.
+#  Does NOT delete your backups.
 # =============================================================
 set -euo pipefail
 
@@ -10,13 +10,8 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_SRC="$DOTFILES_DIR/config"
 CONFIG_DST="$HOME/.config"
 
-# Toggles:
-#   PURGE_PACKAGES=1 -> tambien desinstala los paquetes de packages.txt
-#   REMOVE_FONT=1    -> tambien elimina la Nerd Font instalada
-#   ASSUME_YES=1     -> no pide confirmacion
 PURGE_PACKAGES="${PURGE_PACKAGES:-0}"
 REMOVE_FONT="${REMOVE_FONT:-0}"
-REMOVE_THEME="${REMOVE_THEME:-1}"
 ASSUME_YES="${ASSUME_YES:-0}"
 
 info()  { printf "\033[0;36m[*]\033[0m %s\n" "$1"; }
@@ -25,13 +20,13 @@ warn()  { printf "\033[0;33m[!]\033[0m %s\n" "$1"; }
 
 confirm() {
   [ "$ASSUME_YES" = "1" ] && return 0
-  read -r -p "$1 [s/N] " ans
-  case "$ans" in [sSyY]) return 0 ;; *) return 1 ;; esac
+  read -r -p "$1 [y/N] " ans
+  case "$ans" in [yY]) return 0 ;; *) return 1 ;; esac
 }
 
-# ---- 1. Restaurar backup mas reciente (si existe) ------------
+# ---- 1. Restore latest backup ---------------------------------
 restore_or_remove_configs() {
-  info "Eliminando configuraciones instaladas por este proyecto..."
+  info "Removing configs installed by this project..."
   local latest_backup
   latest_backup="$(ls -1d "$HOME"/.config-backup-* 2>/dev/null | sort | tail -n1 || true)"
 
@@ -40,82 +35,71 @@ restore_or_remove_configs() {
     target="$CONFIG_DST/$name"
     if [ -e "$target" ]; then
       rm -rf "$target"
-      ok "Eliminado ~/.config/$name"
-      # Si hay backup de ese componente, lo restauramos
+      ok "Removed ~/.config/$name"
       if [ -n "$latest_backup" ] && [ -e "$latest_backup/$name" ]; then
         cp -r "$latest_backup/$name" "$target"
-        ok "Restaurado backup de $name desde $latest_backup"
+        ok "Restored backup of $name from $latest_backup"
       fi
     fi
   done
 }
 
-# ---- 2. Eliminar Nerd Font (opcional) -----------------------
+# ---- 2. Remove Nerd Font (optional) ---------------------------
 remove_font() {
   [ "$REMOVE_FONT" != "1" ] && return
   local font_dir="$HOME/.local/share/fonts/JetBrainsMono"
   if [ -d "$font_dir" ]; then
     rm -rf "$font_dir"
     command -v fc-cache >/dev/null 2>&1 && fc-cache -f >/dev/null || true
-    ok "Nerd Font eliminada."
+    ok "Nerd Font removed."
   fi
 }
 
-# ---- 3. Revertir tema de login (greeter) --------------------
+# ---- 3. Revert login greeter ----------------------------------
 revert_greeter() {
   local dst="/etc/lightdm/lightdm-gtk-greeter.conf"
   if ! command -v sudo >/dev/null 2>&1; then return; fi
-  if [ -f "$dst.i3nord.bak" ]; then
-    sudo mv "$dst.i3nord.bak" "$dst"
-    ok "Greeter previo restaurado desde backup."
+  if [ -f "$dst.i3cyberpunk.bak" ]; then
+    sudo mv "$dst.i3cyberpunk.bak" "$dst"
+    ok "Previous greeter restored from backup."
   elif [ -f "$dst" ]; then
-    warn "No hay backup del greeter; se deja el actual sin tocar."
+    warn "No greeter backup found; leaving current config."
   fi
-  [ -f /usr/share/backgrounds/nord.png ] && sudo rm -f /usr/share/backgrounds/nord.png || true
+  [ -f /usr/share/backgrounds/cyberpunk.png ] && sudo rm -f /usr/share/backgrounds/cyberpunk.png || true
 }
 
-# ---- 3b. Eliminar tema GTK Nordic (opcional) ----------------
-remove_gtk_theme() {
-  [ "$REMOVE_THEME" != "1" ] && return
-  if command -v sudo >/dev/null 2>&1 && [ -d /usr/share/themes/Nordic ]; then
-    sudo rm -rf /usr/share/themes/Nordic
-    ok "Tema GTK 'Nordic' eliminado."
-  fi
-}
-
-# ---- 4. Desinstalar paquetes (opcional) ---------------------
+# ---- 4. Purge packages (optional) -----------------------------
 purge_packages() {
   [ "$PURGE_PACKAGES" != "1" ] && return
   if ! command -v apt >/dev/null 2>&1; then
-    warn "apt no disponible; omito desinstalación de paquetes."
+    warn "apt not available; skipping package removal."
     return
   fi
-  warn "Vas a DESINSTALAR los paquetes de packages.txt (incluye xorg, i3, etc.)."
-  if confirm "¿Seguro que quieres eliminar esos paquetes del sistema?"; then
+  warn "You are about to REMOVE packages from packages.txt (includes xorg, i3, etc.)."
+  if confirm "Are you sure you want to remove these packages?"; then
     mapfile -t PKGS < <(grep -vE '^\s*#|^\s*$' "$DOTFILES_DIR/packages.txt")
-    sudo apt remove -y "${PKGS[@]}" || warn "Algunos paquetes no se pudieron eliminar."
+    sudo apt remove -y "${PKGS[@]}" || warn "Some packages could not be removed."
     sudo apt autoremove -y || true
-    ok "Paquetes eliminados."
+    ok "Packages removed."
   else
-    info "Desinstalación de paquetes cancelada."
+    info "Package removal cancelled."
   fi
 }
 
 main() {
-  info "== i3-nord-dotfiles uninstaller =="
-  if ! confirm "Esto eliminará las configs de este proyecto en ~/.config. ¿Continuar?"; then
-    info "Cancelado."
+  info "== i3-cyberpunk-dotfiles uninstaller =="
+  if ! confirm "This will remove configs in ~/.config from this project. Continue?"; then
+    info "Cancelled."
     exit 0
   fi
   restore_or_remove_configs
   remove_font
   revert_greeter
-  remove_gtk_theme
   purge_packages
   echo
-  ok "Desinstalación completa."
-  info "Tus backups (~/.config-backup-*) NO se han borrado."
-  info "Si habilitaste LightDM y quieres revertirlo: sudo systemctl disable lightdm"
+  ok "Uninstall complete."
+  info "Your backups (~/.config-backup-*) have NOT been deleted."
+  info "To disable LightDM: sudo systemctl disable lightdm"
 }
 
 main "$@"

@@ -1,4 +1,4 @@
-# Paquetes Debian (Trixie) para i3-nord-dotfiles
+# Debian packages (Trixie) for i3-cyberpunk-dotfiles
 # Base X / i3
 xorg
 xinit
@@ -12,7 +12,7 @@ suckless-tools
 lightdm
 lightdm-gtk-greeter
 
-# Apps y ecosistema
+# Apps and ecosystem
 kitty
 thunar
 thunar-archive-plugin
@@ -24,7 +24,7 @@ picom
 dunst
 firefox-esr
 
-# Sistema / bandeja
+# System / tray
 network-manager-gnome
 pasystray
 pavucontrol
@@ -32,14 +32,14 @@ blueman
 lxpolkit
 gnome-keyring
 
-# Utilidades
+# Utilities
 lxappearance
 flameshot
 xclip
 brightnessctl
 xss-lock
 
-# Fuentes (repos)
+# Fonts (repos)
 fonts-noto-color-emoji
 fonts-jetbrains-mono
 papirus-icon-theme

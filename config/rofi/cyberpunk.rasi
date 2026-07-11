@@ -1,0 +1,81 @@
+* {
+    bg:         #0a0e14;
+    bg-alt:     #111820;
+    bg-hl:      #1a2430;
+    fg:         #c0caf5;
+    fg-alt:     #565f89;
+    fg-br:      #e0e8ff;
+    cyan:       #00f0ff;
+    pink:       #ff007f;
+    purple:     #7c3aed;
+    gold:       #ffd700;
+    red:        #ff0040;
+
+    background-color:   transparent;
+    text-color:         @fg;
+    margin:             0;
+    padding:            0;
+    spacing:            0;
+}
+
+window {
+    location:       center;
+    width:          540;
+    border-radius:  14px;
+    background-color: @bg;
+    border:         1px;
+    border-color:   @cyan;
+}
+
+mainbox {
+    padding:    14px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    10px;
+    padding:          12px 14px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @cyan;
+    font:       "JetBrainsMono Nerd Font 14";
+}
+
+entry {
+    placeholder:        "  Launch...";
+    placeholder-color:  @fg-alt;
+    text-color:         @fg-br;
+}
+
+listview {
+    margin:       14px 0 0 0;
+    lines:        8;
+    columns:      1;
+    fixed-height: false;
+    scrollbar:    false;
+}
+
+element {
+    padding:        10px 12px;
+    spacing:        12px;
+    border-radius:  8px;
+    text-color:     @fg;
+}
+
+element selected {
+    background-color: @bg-hl;
+    text-color:       @cyan;
+    border:           0px;
+    border-color:     @purple;
+}
+
+element-icon {
+    size: 1.2em;
+}
+
+element-text {
+    vertical-align: 0.5;
+}

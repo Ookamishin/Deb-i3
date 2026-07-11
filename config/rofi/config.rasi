@@ -9,4 +9,4 @@ configuration {
     font:                       "JetBrainsMono Nerd Font 11";
 }
 
-@theme "nord"
+@theme "cyberpunk"

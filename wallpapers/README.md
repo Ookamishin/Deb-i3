@@ -1,8 +1,9 @@
 # Wallpapers
 
-Coloca aquí tu wallpaper como `nord.png` (el usado por `feh --bg-fill` en el
-config de i3).
+Place your Cyberpunk wallpaper here as `cyberpunk.png` (used by `feh --bg-fill` in i3 config).
 
-Recomendados (tema Nord):
-- https://github.com/dxnst/nord-wallpapers
-- https://github.com/linuxdotexe/nordic-wallpapers
+Recommended searches:
+- https://wallhaven.cc/search?q=cyberpunk+neon+dark
+- https://www.deviantart.com/search?q=cyberpunk+neon+wallpaper
+
+Resolution: match your monitor (1920x1080 recommended for the VM).

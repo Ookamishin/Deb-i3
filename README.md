@@ -1,106 +1,83 @@
-# i3-nord-dotfiles
+# i3-cyberpunk-dotfiles
 
-Configuración limpia de **i3wm** con tema **Nord** para **Debian estable (Trixie / 13)**.
-Hecha a medida, sin dependencias de Arch/AUR: todo se instala desde repos oficiales con `apt`.
+Configuración de **i3wm** con tema **Cyberpunk Neon** para **Debian 13 (Trixie)** en Hyper-V.
+Optimizado para bajo consumo de RAM (~300 MB en idle) con máximo impacto visual.
 
-![theme](https://img.shields.io/badge/theme-Nord-88C0D0) ![wm](https://img.shields.io/badge/wm-i3-81A1C1) ![distro](https://img.shields.io/badge/distro-Debian%20Trixie-5E81AC)
+![theme](https://img.shields.io/badge/theme-Cyberpunk-00f0ff) ![wm](https://img.shields.io/badge/wm-i3-ff007f) ![distro](https://img.shields.io/badge/distro-Debian%20Trixie-7c3aed)
 
-## Componentes
+## Stack visual
 
-| Función            | Programa                     |
-|--------------------|------------------------------|
-| Window manager     | i3                           |
-| Terminal           | kitty                        |
-| Gestor de archivos | thunar                       |
-| Visor de imágenes  | feh / nsxiv                  |
-| Lanzador           | rofi                         |
-| Barra              | polybar                      |
-| Compositor         | picom                        |
-| Notificaciones     | dunst                        |
-| Wallpaper          | feh                          |
-| Bloqueo            | i3lock + xss-lock            |
-| Display manager    | LightDM + greeter Nord       |
-| Tema login         | lightdm-gtk-greeter (Nordic) |
-| Fuente             | JetBrainsMono Nerd Font      |
+| Función            | Programa       | Rol estético                          |
+|--------------------|----------------|---------------------------------------|
+| Window manager     | i3             | Bordes neón, gaps amplios             |
+| Terminal           | kitty          | Transparencia 92%, blur al fondo      |
+| Compositor         | picom          | dual_kawase blur, sombras cian, esquinas redondeadas 12px |
+| Barra              | polybar        | Workspaces + iconos Nerd Font         |
+| Lanzador           | rofi           | Tema cyberpunk con border cian        |
+| Notificaciones     | dunst          | Esquinas redondeadas, frames neón     |
+| Wallpaper          | feh            | Cyberpunk art fijo                    |
+| Bloqueo            | i3lock         | Pantalla negra #0a0e14               |
+| Display manager    | LightDM        | Greeter cyberpunk                     |
+| Fuente             | JetBrainsMono Nerd Font | Iconos consistentes en todo el sistema |
+
+## Paleta Cyberpunk Neon
+
+```
+Fondo:     #0a0e14  #111820  #1a2430
+Texto:     #c0caf5  #565f89  #e0e8ff
+Neón cian: #00f0ff  (primario)
+Neón pink: #ff007f  (secundario)
+Neón púrp: #7c3aed  (terciario)
+Matrix gn: #00ff41  (éxito)
+Neón red:  #ff0040  (error/urgente)
+Gold:      #ffd700  (warning)
+```
 
 ## Instalación
 
 ```bash
-git clone <URL-DE-TU-REPO> ~/i3-nord-dotfiles
-cd ~/i3-nord-dotfiles
+git clone <URL-DE-TU-REPO> ~/i3-cyberpunk-dotfiles
+cd ~/i3-cyberpunk-dotfiles
 ./install.sh
 ```
 
 El script:
-1. Instala los paquetes de `packages.txt` con `apt`.
-2. Descarga e instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts`.
-3. Copia las configs a `~/.config/` (haciendo backup de las existentes).
-4. Copia el wallpaper a `~/Pictures/wallpapers/`.
-5. Habilita LightDM.
+1. Instala paquetes con `apt` (xorg, i3, picom, polybar, kitty, rofi, dunst...)
+2. Descarga e instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts`
+3. Instala iconos Papirus-Dark + tema GTK Adwaita-dark
+4. Copia configs a `~/.config/` (backup automático de las existentes)
+5. Copia wallpaper a `~/Pictures/wallpapers/`
+6. Aplica tema Cyberpunk al greeter de LightDM
+7. Habilita LightDM
 
-Después: **reinicia** y elige la sesión **i3** en LightDM.
+Después: **reinicia** y elige sesión **i3** en LightDM.
 
 ### Opciones de prueba (sin tocar el sistema)
 
 ```bash
-# Prueba solo el despliegue de configs en un HOME temporal
 HOME=/tmp/testhome SKIP_APT=1 SKIP_FONT=1 SKIP_DM=1 ./install.sh
 ```
 
-| Variable    | Efecto                                   |
-|-------------|------------------------------------------|
-| `SKIP_APT=1`  | No instala paquetes con apt            |
-| `SKIP_FONT=1` | No descarga la Nerd Font               |
-| `SKIP_DM=1`   | No habilita LightDM                    |
+| Variable      | Efecto                    |
+|---------------|---------------------------|
+| `SKIP_APT=1`  | No instala paquetes       |
+| `SKIP_FONT=1` | No descarga Nerd Font     |
+| `SKIP_DM=1`   | No toca LightDM           |
 
 ## Desinstalación
 
 ```bash
 ./uninstall.sh
 ```
-Elimina las configs de este proyecto en `~/.config` y, si existe, **restaura el
-backup más reciente**. Tus backups nunca se borran.
+Elimina configs y restaura backup más reciente. Opciones:
 
 | Variable           | Efecto                                        |
 |--------------------|-----------------------------------------------|
-| `PURGE_PACKAGES=1` | También desinstala los paquetes de packages.txt |
-| `REMOVE_FONT=1`    | También elimina la Nerd Font instalada        |
-| `REMOVE_THEME=1`   | Elimina el tema GTK Nordic (activado por defecto) |
-| `ASSUME_YES=1`     | No pide confirmación                           |
+| `PURGE_PACKAGES=1` | También desinstala paquetes de packages.txt   |
+| `REMOVE_FONT=1`    | Elimina la Nerd Font                          |
+| `ASSUME_YES=1`     | No pide confirmación                          |
 
-## Instalación manual (alternativa)
-
-```bash
-sudo apt update
-sudo apt install $(grep -vE '^\s*#|^\s*$' packages.txt)
-cp -r config/* ~/.config/
-```
-Instala la Nerd Font a mano en `~/.local/share/fonts` y ejecuta `fc-cache -f`.
-
-## Wallpaper
-
-Coloca tu fondo en `wallpapers/nord.png` (o edita la línea `feh --bg-fill` en
-`config/i3/config`). Buenos wallpapers Nord: <https://github.com/dxnst/nord-wallpapers>
-
-## Temas GTK / iconos
-
-Usa `lxappearance` para aplicar un tema GTK Nord y iconos:
-- Tema GTK: **Nordic** (`install.sh` lo descarga a `/usr/share/themes`)
-- Iconos: **Papirus** (ya incluido en `packages.txt`)
-
-## Login personalizado (Nord)
-
-`install.sh` aplica un tema de login **Nord** para `lightdm-gtk-greeter` en
-`/etc/lightdm/lightdm-gtk-greeter.conf` (config en `system/`), con:
-- Fondo: el wallpaper Nord (copiado a `/usr/share/backgrounds/nord.png`)
-- Tema GTK **Nordic**, iconos **Papirus-Dark**, cursor **Bibata** (opcional)
-- Fuente **JetBrainsMono Nerd Font**, reloj y avatar redondeado
-
-Se hace backup del greeter previo en `.i3nord.bak`. `uninstall.sh` lo restaura.
-El cursor Bibata es opcional: `sudo apt install bibata-cursor-theme` si está
-disponible, o quita esa línea del `.conf`.
-
-## Atajos de teclado principales
+## Atajos de teclado
 
 | Atajo                     | Acción                        |
 |---------------------------|-------------------------------|
@@ -111,7 +88,7 @@ disponible, o quita esa línea del `.conf`.
 | `Super + Q`               | Cerrar ventana                |
 | `Super + F`               | Pantalla completa             |
 | `Super + Space`           | Flotante on/off               |
-| `Super + 1..0`            | Cambiar de workspace          |
+| `Super + 1..0`            | Cambiar workspace             |
 | `Super + Shift + 1..0`    | Mover ventana a workspace     |
 | `Super + H/J/K/L`         | Mover foco                    |
 | `Super + Shift + H/J/K/L` | Mover ventana                 |
@@ -121,20 +98,24 @@ disponible, o quita esa línea del `.conf`.
 | `Super + Shift + R`       | Reiniciar i3                  |
 | `Super + Shift + E`       | Salir de i3                   |
 
-## Estructura
+## Estructura del proyecto
 
 ```
-i3-nord-dotfiles/
+i3-cyberpunk-dotfiles/
 ├── config/
-│   ├── i3/config
-│   ├── polybar/{config.ini,launch.sh}
-│   ├── picom/picom.conf
-│   ├── rofi/{config.rasi,nord.rasi}
-│   ├── dunst/dunstrc
-│   └── kitty/kitty.conf
+│   ├── i3/config              # Window manager
+│   ├── polybar/
+│   │   ├── config.ini         # Barra de estado
+│   │   └── launch.sh
+│   ├── picom/picom.conf       # Compositor (blur, sombras, esquinas)
+│   ├── rofi/
+│   │   ├── config.rasi        # Lanzador
+│   │   └── cyberpunk.rasi     # Tema del lanzador
+│   ├── dunst/dunstrc          # Notificaciones
+│   └── kitty/kitty.conf       # Terminal
 ├── system/
 │   └── lightdm-gtk-greeter.conf
-├── wallpapers/
+├── wallpapers/                # Coloca tu cyberpunk.png aquí
 ├── packages.txt
 ├── install.sh
 ├── uninstall.sh
@@ -142,9 +123,20 @@ i3-nord-dotfiles/
 └── README.md
 ```
 
-## Paleta Nord
+## Renderizado visual
 
-`#2E3440` `#3B4252` `#434C5E` `#4C566A` · `#D8DEE9` `#ECEFF4` · `#8FBCBB` `#88C0D0` `#81A1C1` `#5E81AC` · `#BF616A`
+El compositor **picom** genera el "glassmorphism" cyberpunk:
+
+- **Blur**: dual_kawase con strength 7 — el fondo detrás de las ventanas se ve borroso como vidrio holográfico
+- **Esquinas**: 12px de radio en todas las ventanas (excepto polybar y docks)
+- **Sombras**: offset -14px con tinte cian (#00f0ff) para simular glow neón
+- **Transparencia**: ventanas inactivas al 88%, activas al 96%
+
+El efecto combinado: paneles flotantes de vidrio oscuro con bordes de luz cian.
+
+## Tipografía
+
+**JetBrainsMono Nerd Font** — versión 3.0+. Incluye ~4000 iconos (material, font-awesome, powerline, devicons) para polybar, rofi y kitty sin fuentes adicionales.
 
 ## Licencia
 
