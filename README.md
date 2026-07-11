@@ -1,9 +1,9 @@
 # i3-cyberpunk-dotfiles
 
-Configuración de **i3wm** con tema **Cyberpunk Neon** para **Debian 13 (Trixie)** en Hyper-V.
+Configuración de **i3wm** con tema **Cyberpunk Neon** para **Debian 13 (Trixie) / Arch Linux**.
 Optimizado para bajo consumo de RAM (~300 MB en idle) con máximo impacto visual.
 
-![theme](https://img.shields.io/badge/theme-Cyberpunk-00f0ff) ![wm](https://img.shields.io/badge/wm-i3-ff007f) ![distro](https://img.shields.io/badge/distro-Debian%20Trixie-7c3aed)
+![theme](https://img.shields.io/badge/theme-Cyberpunk-00f0ff) ![wm](https://img.shields.io/badge/wm-i3-ff007f) ![distro](https://img.shields.io/badge/distro-Debian%20|%20Arch-7c3aed)
 
 ## Stack visual
 
@@ -45,10 +45,11 @@ cd ~/i3-cyberpunk-dotfiles
 ./install.sh
 ```
 
-El script:
-1. Instala paquetes con `apt` (xorg, i3, picom, polybar, kitty, rofi, dunst...)
-2. Descarga e instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts`
-3. Instala iconos Papirus-Dark + tema GTK Adwaita-dark
+El script detecta automáticamente la distro (Debian/apt o Arch/pacman):
+
+1. Instala los paquetes correspondientes (`packages.txt` o `packages-arch.txt`)
+2. Descarga e instala **JetBrainsMono Nerd Font** (manual o via AUR helper)
+3. Configura tema GTK oscuro + iconos Papirus-Dark
 4. Copia configs a `~/.config/` (backup automático de las existentes)
 5. Copia wallpaper a `~/Pictures/wallpapers/`
 6. Aplica tema Cyberpunk al greeter de LightDM
@@ -59,12 +60,12 @@ Después: **reinicia** y elige sesión **i3** en LightDM.
 ### Opciones de prueba (sin tocar el sistema)
 
 ```bash
-HOME=/tmp/testhome SKIP_APT=1 SKIP_FONT=1 SKIP_DM=1 ./install.sh
+HOME=/tmp/testhome SKIP_PKG=1 SKIP_FONT=1 SKIP_DM=1 ./install.sh
 ```
 
 | Variable      | Efecto                    |
 |---------------|---------------------------|
-| `SKIP_APT=1`  | No instala paquetes       |
+| `SKIP_PKG=1`  | No instala paquetes       |
 | `SKIP_FONT=1` | No descarga Nerd Font     |
 | `SKIP_DM=1`   | No toca LightDM           |
 
@@ -129,8 +130,9 @@ i3-cyberpunk-dotfiles/
 ├── system/
 │   └── lightdm-gtk-greeter.conf
 ├── wallpapers/                # Coloca tu cyberpunk.png aquí
-├── packages.txt
-├── install.sh
+├── packages.txt               # Lista Debian
+├── packages-arch.txt          # Lista Arch
+├── install.sh                 # Instalador multi-distro
 ├── uninstall.sh
 ├── LICENSE
 └── README.md

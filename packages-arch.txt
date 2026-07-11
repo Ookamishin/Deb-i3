@@ -1,0 +1,51 @@
+# Arch packages for i3-cyberpunk-dotfiles
+# Base X / i3
+xorg
+xorg-xinit
+xorg-xrandr
+i3-wm
+i3lock
+i3status
+dmenu
+
+# Display manager
+lightdm
+lightdm-gtk-greeter
+
+# Apps and ecosystem
+kitty
+thunar
+thunar-archive-plugin
+feh
+nsxiv
+rofi
+polybar
+picom
+dunst
+firefox
+
+# System / tray
+network-manager-applet
+pasystray
+pavucontrol
+blueman
+lxpolkit
+gnome-keyring
+
+# Utilities
+lxappearance
+flameshot
+xclip
+brightnessctl
+xss-lock
+
+# Fonts
+noto-fonts-emoji
+ttf-jetbrains-mono
+papirus-icon-theme
+
+# Cyberpunk extras
+cava
+btop
+neofetch
+udiskie
