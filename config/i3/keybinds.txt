@@ -1,0 +1,52 @@
+═══ i3 Cyberpunk — Keybindings ═══
+
+── Launch ──
+Super+Return          Terminal (kitty)
+Super+Shift+Return   Scratchpad terminal
+Super+D               Rofi launcher
+Super+E               File manager (thunar)
+Super+B               Browser (firefox)
+Super+Delete          Power menu
+Super+Ctrl+C          Audio visualizer (cava)
+Super+Ctrl+B          System monitor (btop)
+Super+V               Clipboard history (greenclip)
+
+── Windows ──
+Super+Q               Kill window
+Super+F               Fullscreen toggle
+Super+Space           Floating toggle
+Super+Shift+Space     Focus floating/tiling
+Super+H/J/K/L         Focus direction
+Super+Shift+H/J/K/L   Move window
+
+── Workspaces ──
+Super+1-0             Switch workspace
+Super+Shift+1-0       Move window to workspace
+Super+grave           Toggle scratchpad
+
+── Layout ──
+Super+S               Stacking layout
+Super+W               Tabbed layout
+Super+G               Toggle split layout
+Super+Ctrl+V          Split vertical
+Super+Shift+V         Split horizontal
+Super+A               Focus parent
+Super+R               Resize mode (h/j/k/l to resize)
+
+── System ──
+Super+Shift+X         Lock screen
+Super+Shift+W         Wallpaper browser (nitrogen)
+Super+Shift+C         Reload i3 config
+Super+Shift+R         Restart i3
+Super+Shift+E         Exit i3
+Super+Shift+Slash     Show this help
+
+── Media ──
+XF86AudioRaiseVol     Volume up
+XF86AudioLowerVol     Volume down
+XF86AudioMute         Mute
+XF86MonBrightnessUp   Brightness up
+XF86MonBrightnessDown Brightness down
+Print                 Screenshot full
+Super+Print           Screenshot area
+Shift+Print           Screenshot current screen
