@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
-# Random cyberpunk wallpaper from ~/Pictures/wallpapers/
+# Wallpaper manager — random from ~/Pictures/wallpapers/
+# Uses nitrogen first (saves config), falls back to feh
 DIR=~/Pictures/wallpapers
-[ -d "$DIR" ] || { echo "No wallpaper dir"; exit 1; }
+[ -d "$DIR" ] || { mkdir -p "$DIR"; exit 0; }
 
-# Use feh to pick a random image
-feh --bg-fill --randomize "$DIR"/*.png "$DIR"/*.jpg 2>/dev/null
+# Pick a random image
+IMG=$(find "$DIR" -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \) | shuf -n1)
+[ -z "$IMG" ] && { dunstify -a "wallpaper" -u critical "No wallpapers found"; exit 1; }
 
-# Notify
-dunstify -a "wallpaper" -u low "Wallpaper changed"
+if command -v nitrogen >/dev/null 2>&1; then
+  nitrogen --set-zoom-fill "$IMG" --save
+else
+  feh --bg-fill "$IMG"
+fi
+
+dunstify -a "wallpaper" -u low "Wallpaper: $(basename "$IMG")"

@@ -55,6 +55,7 @@ xdotool
 brightnessctl
 xss-lock
 imagemagick
+nitrogen
 
 # Fonts
 noto-fonts-emoji

@@ -33,7 +33,7 @@ set $red     #ff0040
 # exec_always --no-startup-id picom           # ZERO GPU: descomentar para esquinas
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id dunst
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/cyberpunk.png
+exec --no-startup-id ~/.config/i3/scripts/autowall.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
@@ -109,7 +109,7 @@ bindsym Shift+Print exec flameshot screen -p ~/Pictures
 
 # Lock & wallpaper
 bindsym $mod+shift+x exec $lock
-bindsym $mod+shift+w exec $wallpaper
+bindsym $mod+shift+w exec nitrogen ~/Pictures/wallpapers/
 
 # Reload / restart / exit
 bindsym $mod+shift+c reload

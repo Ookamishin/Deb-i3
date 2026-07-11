@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Cyberpunk lockscreen via i3lock-color
 # Requires: i3lock-color, imagemagick
-WALLPAPER=~/Pictures/wallpapers/cyberpunk.png
+WALLPAPER=$(awk -F= '/file=/ {print $2; exit}' ~/.config/nitrogen/bg-saved.cfg 2>/dev/null)
+WALLPAPER="${WALLPAPER:-~/Pictures/wallpapers/cyberpunk.png}"
 [ -f "$WALLPAPER" ] || exit 1
 TMPBG=/tmp/lock.png
 
