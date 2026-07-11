@@ -1,0 +1,5 @@
+# greenclip clipboard manager
+[greenclip]
+max_history_length = 25
+history_file = "/home/{user}/.cache/greenclip.history"
+enable_image_support = true

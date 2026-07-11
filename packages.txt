@@ -1,4 +1,4 @@
-# Debian packages (Trixie) for i3-cyberpunk-dotfiles
+# Debian packages for i3-cyberpunk-dotfiles
 # Base X / i3
 xorg
 xinit
@@ -12,7 +12,7 @@ suckless-tools
 lightdm
 lightdm-gtk-greeter
 
-# Apps and ecosystem
+# Apps
 kitty
 thunar
 thunar-archive-plugin
@@ -32,20 +32,27 @@ blueman
 lxpolkit
 gnome-keyring
 
-# Utilities
-lxappearance
-flameshot
-xclip
-brightnessctl
-xss-lock
-
-# Cyberpunk extras (visual layers)
+# Cyberpunk extras
 cava
 btop
 neofetch
 udiskie
+redshift-gtk
+pulseaudio
 
-# Fonts (repos)
+# Lock screen
+# i3lock-color: compilar desde fuente o buscar en backports
+
+# Utilities
+lxappearance
+flameshot
+xclip
+xdotool
+brightnessctl
+xss-lock
+imagemagick
+
+# Fonts
 fonts-noto-color-emoji
 fonts-jetbrains-mono
 papirus-icon-theme

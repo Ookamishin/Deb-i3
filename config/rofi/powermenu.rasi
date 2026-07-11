@@ -1,0 +1,50 @@
+* {
+    bg:     #0a0e14;
+    bg-alt: #111820;
+    fg:     #c0caf5;
+    fg-alt: #565f89;
+    cyan:   #00f0ff;
+    pink:   #ff007f;
+
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+window {
+    location:       center;
+    width:          260;
+    border-radius:  10px;
+    background-color: @bg;
+    border:         2px;
+    border-color:   @cyan;
+}
+
+mainbox {
+    padding:    12px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    8px;
+    padding:          10px 12px;
+    text-color:       @fg;
+}
+
+listview {
+    margin:       12px 0 0 0;
+    lines:        5;
+    columns:      1;
+    fixed-height: false;
+    scrollbar:    false;
+}
+
+element {
+    padding:        8px 10px;
+    border-radius:  6px;
+    text-color:     @fg;
+}
+
+element selected {
+    background-color: @bg-alt;
+    text-color:       @cyan;
+}

@@ -4,7 +4,7 @@
     width = 340
     height = 130
     origin = top-right
-    offset = 16x16
+    offset = 16x56
     scale = 0
     notification_limit = 5
 
@@ -15,7 +15,7 @@
     progress_bar_max_width = 300
 
     indicate_hidden = yes
-    transparency = 8
+    transparency = 5
     separator_height = 2
     padding = 14
     horizontal_padding = 14

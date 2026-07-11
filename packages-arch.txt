@@ -1,5 +1,4 @@
 # Arch packages for i3-cyberpunk-dotfiles
-# (use individual packages, not groups, to avoid pacman prompt)
 # Base X
 xorg-server
 xorg-xinit
@@ -17,7 +16,7 @@ dmenu
 lightdm
 lightdm-gtk-greeter
 
-# Apps and ecosystem
+# Apps
 kitty
 thunar
 thunar-archive-plugin
@@ -37,20 +36,28 @@ blueman
 polkit-gnome
 gnome-keyring
 
-# Utilities
-lxappearance
-flameshot
-xclip
-brightnessctl
-xss-lock
-
-# Fonts
-noto-fonts-emoji
-ttf-jetbrains-mono
-papirus-icon-theme
-
 # Cyberpunk extras
 cava
 btop
 fastfetch
 udiskie
+greenclip
+redshift
+pulseaudio
+
+# Lock screen (i3lock-color from AUR)
+# yay -S i3lock-color
+
+# Utilities
+lxappearance
+flameshot
+xclip
+xdotool
+brightnessctl
+xss-lock
+imagemagick
+
+# Fonts
+noto-fonts-emoji
+ttf-jetbrains-mono
+papirus-icon-theme

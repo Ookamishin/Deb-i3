@@ -1,62 +1,55 @@
 # =============================================================
-#  i3 config - Cyberpunk Neon
-#  Debian 13 (Trixie) - Hyper-V VM optimized
+#  i3 config — Cyberpunk Neon (full)
 # =============================================================
-
-# Modifier: Super (Windows key)
 set $mod Mod4
-
-# Font for window titles
 font pango:JetBrainsMono Nerd Font 10
 
-# =============================================================
-#  Cyberpunk Neon Palette
-#  Base: void black · Accents: cyan/pink/purple neons
-# =============================================================
-set $cp-bg      #0a0e14
-set $cp-bg-alt  #111820
-set $cp-bg-hl   #1a2430
-set $cp-fg      #c0caf5
-set $cp-fg-alt  #565f89
-set $cp-fg-br   #e0e8ff
-set $cp-cyan    #00f0ff
-set $cp-pink    #ff007f
-set $cp-purple  #7c3aed
-set $cp-gold    #ffd700
-set $cp-green   #00ff41
-set $cp-red     #ff0040
-set $cp-orange  #ff6600
-
-# =============================================================
-#  Default apps
-# =============================================================
+# ---- Variables ----
 set $term kitty
 set $filemanager thunar
-set $browser firefox-esr
+set $browser firefox
 set $launcher rofi -show drun
+set $powermenu ~/.config/i3/scripts/powermenu.sh
+set $lock ~/.config/i3/scripts/lock.sh
+set $wallpaper ~/.config/i3/scripts/wallpaper.sh
+
+# ---- Colors ----
+set $bg      #0a0e14
+set $bg-alt  #111820
+set $bg-hl   #1a2430
+set $fg      #c0caf5
+set $fg-alt  #565f89
+set $fg-br   #e0e8ff
+set $cyan    #00f0ff
+set $pink    #ff007f
+set $purple  #7c3aed
+set $gold    #ffd700
+set $green   #00ff41
+set $red     #ff0040
 
 # =============================================================
 #  Autostart
 # =============================================================
-# exec_always --no-startup-id picom  # ZERO GPU: comment this line
+# exec_always --no-startup-id picom           # ZERO GPU: descomentar para esquinas
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id dunst
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/cyberpunk.png
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
-# Polkit auth agent: lxpolkit (Debian) / polkit-gnome (Arch)
-exec --no-startup-id lxpolkit
-# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/cyberpunk.png
-exec --no-startup-id xset s 600 600
-exec --no-startup-id xss-lock -- i3lock -c 0a0e14
 exec --no-startup-id udiskie --smart-tray
-# Uncomment if Hyper-V resolution is stuck at 1024x768:
+exec --no-startup-id greenclip daemon
+exec --no-startup-id redshift-gtk -c ~/.config/redshift/redshift.conf
+exec_always --no-startup-id xset s 600 600
+exec_always --no-startup-id xss-lock -- i3lock -c 0a0e14
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Uncomment for Hyper-V resolution fix:
 # exec_always --no-startup-id xrandr --output Virtual-1 --mode 1920x1080
 
 # =============================================================
-#  Gaps & borders — breathing room for the neon glow
+#  Gaps & borders
 # =============================================================
 gaps inner 8
 gaps outer 4
@@ -66,51 +59,89 @@ smart_gaps on
 hide_edge_borders smart
 
 # =============================================================
+#  Floating rules (apps that should never tile)
+# =============================================================
+for_window [title="About Mozilla Firefox"] floating enable
+for_window [title="Preferences"] floating enable
+for_window [class="(?i)firefox"] floating disable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Xfce4-power-manager-settings"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [window_type="tooltip"] border none
+
+# Scratchpad: terminal
+for_window [instance="scratchpad"] move scratchpad
+bindsym $mod+grave [instance="scratchpad"] scratchpad show
+
+# =============================================================
 #  Keybindings
 # =============================================================
+# Apps
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term -e $term --class scratchpad
 bindsym $mod+d exec $launcher
 bindsym $mod+e exec $filemanager
 bindsym $mod+b exec $browser
+bindsym $mod+Delete exec $powermenu
 bindsym $mod+q kill
 bindsym $mod+Ctrl+c exec $term -e cava
 bindsym $mod+Ctrl+b exec $term -e btop
+bindsym $mod+v exec greenclip print | rofi -dmenu | xargs -r xdotool type --clearmodifiers
 
-bindsym Print exec --no-startup-id flameshot full
-bindsym $mod+Print exec --no-startup-id flameshot gui
+# Media keys
+bindsym XF86AudioRaiseVolume exec ~/.config/i3/scripts/volume.sh up
+bindsym XF86AudioLowerVolume exec ~/.config/i3/scripts/volume.sh down
+bindsym XF86AudioMute exec ~/.config/i3/scripts/volume.sh mute
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86Search exec $launcher
 
-bindsym $mod+shift+x exec --no-startup-id i3lock -c 0a0e14
+# Screenshots
+bindsym Print exec flameshot full -p ~/Pictures
+bindsym $mod+Print exec flameshot gui -p ~/Pictures
+bindsym Shift+Print exec flameshot screen -p ~/Pictures
 
+# Lock & wallpaper
+bindsym $mod+shift+x exec $lock
+bindsym $mod+shift+w exec $wallpaper
+
+# Reload / restart / exit
 bindsym $mod+shift+c reload
 bindsym $mod+shift+r restart
-bindsym $mod+shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes, exit' 'i3-msg exit'"
+bindsym $mod+shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes' 'i3-msg exit'"
 
-# --- Focus (vim + arrows) ---
+# Focus (vim + arrows)
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
-# --- Move windows ---
+# Move windows
 bindsym $mod+shift+h move left
 bindsym $mod+shift+j move down
 bindsym $mod+shift+k move up
 bindsym $mod+shift+l move right
-bindsym $mod+shift+Left move left
-bindsym $mod+shift+Down move down
-bindsym $mod+shift+Up move up
+bindsym $mod+shift+Left  move left
+bindsym $mod+shift+Down  move down
+bindsym $mod+shift+Up    move up
 bindsym $mod+shift+Right move right
 
-# --- Layout ---
+# Layout
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+g layout toggle split
-bindsym $mod+v split v
-bindsym $mod+shift+v split h
+bindsym $mod+v split vertical
+bindsym $mod+shift+v split horizontal
 bindsym $mod+f fullscreen toggle
 bindsym $mod+space floating toggle
 bindsym $mod+shift+space focus mode_toggle
@@ -160,34 +191,19 @@ mode "resize" {
     bindsym j resize grow height 10 px or 10 ppt
     bindsym k resize shrink height 10 px or 10 ppt
     bindsym l resize grow width 10 px or 10 ppt
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
 # =============================================================
-#  Media keys
+#  Window colors
 # =============================================================
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+client.focused          $cyan    $bg-alt   $fg-br   $purple   $cyan
+client.focused_inactive $bg-hl   $bg       $fg-alt  $bg-hl    $bg-hl
+client.unfocused        $bg-alt  $bg       $fg-alt  $bg-alt   $bg-alt
+client.urgent           $red     $red      $fg-br   $red      $red
+client.placeholder      $bg      $bg       $fg-alt  $bg       $bg
+client.background       $bg
 
-# =============================================================
-#  Window colors — Cyberpunk glow
-#  Format: border  background  text  indicator  child_border
-# =============================================================
-client.focused          $cp-cyan    $cp-bg-alt   $cp-fg-br   $cp-purple   $cp-cyan
-client.focused_inactive $cp-bg-hl   $cp-bg       $cp-fg-alt  $cp-bg-hl    $cp-bg-hl
-client.unfocused        $cp-bg-alt  $cp-bg       $cp-fg-alt  $cp-bg-alt   $cp-bg-alt
-client.urgent           $cp-red     $cp-red      $cp-fg-br   $cp-red      $cp-red
-client.placeholder      $cp-bg      $cp-bg       $cp-fg-alt  $cp-bg       $cp-bg
-client.background       $cp-bg
-
-# No default i3bar (we use polybar)
+# No i3bar (polybar)

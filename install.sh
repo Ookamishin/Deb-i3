@@ -128,6 +128,7 @@ deploy_configs() {
   mkdir -p "$CONFIG_DST"
   for dir in "$CONFIG_SRC"/*/; do
     name="$(basename "$dir")"
+    [ "$name" = "i3lock" ] && continue  # handled by lock.sh
     if [ -e "$CONFIG_DST/$name" ]; then
       mkdir -p "$BACKUP_DIR"
       warn "Backing up $name -> $BACKUP_DIR/"
@@ -140,6 +141,23 @@ deploy_configs() {
     ok "Installed ~/.config/$name"
   done
   chmod +x "$CONFIG_DST/polybar/launch.sh" 2>/dev/null || true
+  chmod +x "$CONFIG_DST/i3/scripts/"*.sh 2>/dev/null || true
+}
+
+deploy_home() {
+  local home_src="$DOTFILES_DIR/home"
+  [ -d "$home_src" ] || return
+  info "Deploying home files..."
+  for f in "$home_src"/.*; do
+    [ -f "$f" ] || continue
+    local base="$(basename "$f")"
+    if [ -e "$HOME/$base" ]; then
+      mkdir -p "$BACKUP_DIR"
+      mv "$HOME/$base" "$BACKUP_DIR/"
+    fi
+    cp "$f" "$HOME/$base"
+    ok "Installed ~/$base"
+  done
 }
 
 # ---- 5. Wallpaper ---------------------------------------------
@@ -201,14 +219,16 @@ main() {
   install_nerd_font
   install_gtk_theme
   deploy_configs
+  deploy_home
   deploy_wallpaper
   tune_performance
   deploy_greeter
   enable_lightdm
   echo
   ok "Installation complete."
-  [ "$DISTRO" = "debian" ] && info "Reboot and select 'i3' in LightDM."
-  [ "$DISTRO" = "arch" ] && info "Reboot and select 'i3' in LightDM."
+  [ "$DISTRO" = "arch" ] && info "Optional AUR: yay -S i3lock-color (for lockscreen effects)"
+  info "Reboot and select 'i3' in LightDM."
+  info "Set fish as shell: chsh -s /usr/bin/fish"
 }
 
 main "$@"
