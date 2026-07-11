@@ -1,0 +1,44 @@
+# Paquetes Debian (Trixie) para i3-nord-dotfiles
+# Base X / i3
+xorg
+xinit
+x11-xserver-utils
+i3
+i3lock
+i3status
+suckless-tools
+
+# Display manager
+lightdm
+lightdm-gtk-greeter
+
+# Apps y ecosistema
+kitty
+thunar
+thunar-archive-plugin
+feh
+nsxiv
+rofi
+polybar
+picom
+dunst
+
+# Sistema / bandeja
+network-manager-gnome
+pasystray
+pavucontrol
+blueman
+policykit-1-gnome
+gnome-keyring
+
+# Utilidades
+lxappearance
+flameshot
+xclip
+brightnessctl
+xautolock
+
+# Fuentes (repos)
+fonts-noto-color-emoji
+fonts-jetbrains-mono
+papirus-icon-theme
