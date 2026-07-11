@@ -2,7 +2,7 @@
 # Launch polybar on every connected monitor
 
 # Terminate already running bar instances
-killall -q polybar
+pkill -x polybar 2>/dev/null || true
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 

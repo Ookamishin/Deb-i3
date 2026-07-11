@@ -117,7 +117,13 @@ deploy_configs() {
       warn "Respaldo de $name -> $BACKUP_DIR/"
       mv "$CONFIG_DST/$name" "$BACKUP_DIR/"
     fi
+    rm -rf "$CONFIG_DST/$name"
     cp -r "$dir" "$CONFIG_DST/$name"
+    # Verifica que no quede ningún archivo vacío (evita despliegues corruptos)
+    n_bad="$(find "$CONFIG_DST/$name" -type f -size 0 2>/dev/null | wc -l)"
+    if [ "$n_bad" -gt 0 ]; then
+      warn "AVISO: $n_bad archivo(s) vacío(s) en ~/.config/$name tras copiar."
+    fi
     ok "Instalado ~/.config/$name"
   done
   chmod +x "$CONFIG_DST/polybar/launch.sh" 2>/dev/null || true
