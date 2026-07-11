@@ -39,6 +39,33 @@ El script:
 
 Después: **reinicia** y elige la sesión **i3** en LightDM.
 
+### Opciones de prueba (sin tocar el sistema)
+
+```bash
+# Prueba solo el despliegue de configs en un HOME temporal
+HOME=/tmp/testhome SKIP_APT=1 SKIP_FONT=1 SKIP_DM=1 ./install.sh
+```
+
+| Variable    | Efecto                                   |
+|-------------|------------------------------------------|
+| `SKIP_APT=1`  | No instala paquetes con apt            |
+| `SKIP_FONT=1` | No descarga la Nerd Font               |
+| `SKIP_DM=1`   | No habilita LightDM                    |
+
+## Desinstalación
+
+```bash
+./uninstall.sh
+```
+Elimina las configs de este proyecto en `~/.config` y, si existe, **restaura el
+backup más reciente**. Tus backups nunca se borran.
+
+| Variable           | Efecto                                        |
+|--------------------|-----------------------------------------------|
+| `PURGE_PACKAGES=1` | También desinstala los paquetes de packages.txt |
+| `REMOVE_FONT=1`    | También elimina la Nerd Font instalada        |
+| `ASSUME_YES=1`     | No pide confirmación                           |
+
 ## Instalación manual (alternativa)
 
 ```bash
@@ -94,6 +121,8 @@ i3-nord-dotfiles/
 ├── wallpapers/
 ├── packages.txt
 ├── install.sh
+├── uninstall.sh
+├── LICENSE
 └── README.md
 ```
 

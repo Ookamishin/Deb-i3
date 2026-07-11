@@ -9,18 +9,31 @@ CONFIG_SRC="$DOTFILES_DIR/config"
 CONFIG_DST="$HOME/.config"
 BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
+# Toggles (utiles para pruebas):
+#   SKIP_APT=1   -> no instala paquetes con apt
+#   SKIP_FONT=1  -> no descarga la Nerd Font
+#   SKIP_DM=1    -> no habilita LightDM
+SKIP_APT="${SKIP_APT:-0}"
+SKIP_FONT="${SKIP_FONT:-0}"
+SKIP_DM="${SKIP_DM:-0}"
+
 info()  { printf "\033[0;36m[*]\033[0m %s\n" "$1"; }
 ok()    { printf "\033[0;32m[+]\033[0m %s\n" "$1"; }
 warn()  { printf "\033[0;33m[!]\033[0m %s\n" "$1"; }
 
 # ---- 1. Comprobar que es Debian ------------------------------
-if ! command -v apt >/dev/null 2>&1; then
+if [ "$SKIP_APT" != "1" ] && ! command -v apt >/dev/null 2>&1; then
   warn "Este script está pensado para Debian/apt. Abortando."
+  warn "(Usa SKIP_APT=1 para probar sin instalar paquetes.)"
   exit 1
 fi
 
 # ---- 2. Instalar paquetes ------------------------------------
 install_packages() {
+  if [ "$SKIP_APT" = "1" ]; then
+    warn "SKIP_APT=1 -> omitiendo instalación de paquetes."
+    return
+  fi
   info "Actualizando índices de apt..."
   sudo apt update
 
@@ -33,8 +46,12 @@ install_packages() {
 
 # ---- 3. Nerd Fonts (paso manual automatizado) ----------------
 install_nerd_font() {
+  if [ "$SKIP_FONT" = "1" ]; then
+    warn "SKIP_FONT=1 -> omitiendo instalación de Nerd Font."
+    return
+  fi
   local font_dir="$HOME/.local/share/fonts"
-  if fc-list | grep -qi "JetBrainsMono Nerd Font"; then
+  if command -v fc-list >/dev/null 2>&1 && fc-list | grep -qi "JetBrainsMono Nerd Font"; then
     ok "JetBrainsMono Nerd Font ya está instalada."
     return
   fi
@@ -86,6 +103,10 @@ deploy_wallpaper() {
 
 # ---- 6. Habilitar LightDM ------------------------------------
 enable_lightdm() {
+  if [ "$SKIP_DM" = "1" ]; then
+    warn "SKIP_DM=1 -> omitiendo habilitación de LightDM."
+    return
+  fi
   if command -v systemctl >/dev/null 2>&1; then
     info "Habilitando LightDM..."
     sudo systemctl enable lightdm || warn "No se pudo habilitar lightdm."
