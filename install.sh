@@ -71,6 +71,32 @@ install_nerd_font() {
   ok "Nerd Font instalada."
 }
 
+# ---- 3b. Tema GTK Nordic (no está en repos Debian) ----------
+install_gtk_theme() {
+  if [ "$SKIP_APT" = "1" ]; then
+    warn "SKIP_APT=1 -> omitiendo instalación del tema GTK Nordic."
+    return
+  fi
+  if [ -d /usr/share/themes/Nordic ]; then
+    ok "Tema GTK 'Nordic' ya está instalado."
+    return
+  fi
+  info "Instalando tema GTK 'Nordic' en /usr/share/themes..."
+  local tmp
+  tmp="$(mktemp -d)"
+  local url="https://github.com/EliverLara/Nordic/archive/refs/heads/master.tar.gz"
+  if command -v curl >/dev/null 2>&1; then
+    curl -fL "$url" -o "$tmp/nordic.tar.gz" || { warn "No se pudo descargar Nordic."; rm -rf "$tmp"; return; }
+  else
+    wget -O "$tmp/nordic.tar.gz" "$url" || { warn "No se pudo descargar Nordic."; rm -rf "$tmp"; return; }
+  fi
+  tar -xzf "$tmp/nordic.tar.gz" -C "$tmp"
+  sudo mkdir -p /usr/share/themes/Nordic
+  sudo cp -r "$tmp"/Nordic-master/* /usr/share/themes/Nordic/
+  rm -rf "$tmp"
+  ok "Tema GTK 'Nordic' instalado."
+}
+
 # ---- 4. Copiar configuraciones (con backup) ------------------
 deploy_configs() {
   info "Desplegando configuraciones a $CONFIG_DST..."
@@ -101,7 +127,34 @@ deploy_wallpaper() {
   fi
 }
 
-# ---- 6. Habilitar LightDM ------------------------------------
+# ---- 6. Login Nord (lightdm-gtk-greeter) ---------------------
+deploy_greeter() {
+  if [ "$SKIP_DM" = "1" ]; then
+    warn "SKIP_DM=1 -> omitiendo tema de login (greeter)."
+    return
+  fi
+  local src="$DOTFILES_DIR/system/lightdm-gtk-greeter.conf"
+  local dst="/etc/lightdm/lightdm-gtk-greeter.conf"
+  [ -f "$src" ] || { warn "No existe $src; omito greeter."; return; }
+
+  info "Aplicando tema de login Nord (lightdm-gtk-greeter)..."
+  # Copia el wallpaper a una ruta accesible por el greeter (usuario lightdm)
+  if [ -f "$DOTFILES_DIR/wallpapers/nord.png" ]; then
+    sudo cp "$DOTFILES_DIR/wallpapers/nord.png" /usr/share/backgrounds/nord.png
+  fi
+  # Backup del greeter previo
+  if [ -f "$dst" ] && [ ! -f "$dst.i3nord.bak" ]; then
+    sudo cp "$dst" "$dst.i3nord.bak"
+    warn "Backup del greeter previo: $dst.i3nord.bak"
+  fi
+  sudo cp "$src" "$dst"
+  ok "Login Nord aplicado."
+  warn "El tema GTK 'Nordic' y cursor 'Bibata' deben estar instalados en el sistema."
+  warn "  Nordic: https://github.com/EliverLara/Nordic (a /usr/share/themes)"
+  warn "  Bibata: paquete 'bibata-cursor-theme' o manual (opcional)."
+}
+
+# ---- 7. Habilitar LightDM ------------------------------------
 enable_lightdm() {
   if [ "$SKIP_DM" = "1" ]; then
     warn "SKIP_DM=1 -> omitiendo habilitación de LightDM."
@@ -118,8 +171,10 @@ main() {
   info "== i3-nord-dotfiles installer =="
   install_packages
   install_nerd_font
+  install_gtk_theme
   deploy_configs
   deploy_wallpaper
+  deploy_greeter
   enable_lightdm
   echo
   ok "Instalación completa."

@@ -19,7 +19,8 @@ Hecha a medida, sin dependencias de Arch/AUR: todo se instala desde repos oficia
 | Notificaciones     | dunst                        |
 | Wallpaper          | feh                          |
 | Bloqueo            | i3lock + xautolock           |
-| Display manager    | LightDM                      |
+| Display manager    | LightDM + greeter Nord       |
+| Tema login         | lightdm-gtk-greeter (Nordic) |
 | Fuente             | JetBrainsMono Nerd Font      |
 
 ## Instalación
@@ -83,8 +84,20 @@ Coloca tu fondo en `wallpapers/nord.png` (o edita la línea `feh --bg-fill` en
 ## Temas GTK / iconos
 
 Usa `lxappearance` para aplicar un tema GTK Nord y iconos:
-- Tema GTK: **Nordic** (<https://github.com/EliverLara/Nordic>)
+- Tema GTK: **Nordic** (`install.sh` lo descarga a `/usr/share/themes`)
 - Iconos: **Papirus** (ya incluido en `packages.txt`)
+
+## Login personalizado (Nord)
+
+`install.sh` aplica un tema de login **Nord** para `lightdm-gtk-greeter` en
+`/etc/lightdm/lightdm-gtk-greeter.conf` (config en `system/`), con:
+- Fondo: el wallpaper Nord (copiado a `/usr/share/backgrounds/nord.png`)
+- Tema GTK **Nordic**, iconos **Papirus-Dark**, cursor **Bibata** (opcional)
+- Fuente **JetBrainsMono Nerd Font**, reloj y avatar redondeado
+
+Se hace backup del greeter previo en `.i3nord.bak`. `uninstall.sh` lo restaura.
+El cursor Bibata es opcional: `sudo apt install bibata-cursor-theme` si está
+disponible, o quita esa línea del `.conf`.
 
 ## Atajos de teclado principales
 
@@ -118,6 +131,8 @@ i3-nord-dotfiles/
 │   ├── rofi/{config.rasi,nord.rasi}
 │   ├── dunst/dunstrc
 │   └── kitty/kitty.conf
+├── system/
+│   └── lightdm-gtk-greeter.conf
 ├── wallpapers/
 ├── packages.txt
 ├── install.sh

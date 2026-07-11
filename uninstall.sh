@@ -60,7 +60,20 @@ remove_font() {
   fi
 }
 
-# ---- 3. Desinstalar paquetes (opcional) ---------------------
+# ---- 3. Revertir tema de login (greeter) --------------------
+revert_greeter() {
+  local dst="/etc/lightdm/lightdm-gtk-greeter.conf"
+  if ! command -v sudo >/dev/null 2>&1; then return; fi
+  if [ -f "$dst.i3nord.bak" ]; then
+    sudo mv "$dst.i3nord.bak" "$dst"
+    ok "Greeter previo restaurado desde backup."
+  elif [ -f "$dst" ]; then
+    warn "No hay backup del greeter; se deja el actual sin tocar."
+  fi
+  [ -f /usr/share/backgrounds/nord.png ] && sudo rm -f /usr/share/backgrounds/nord.png || true
+}
+
+# ---- 4. Desinstalar paquetes (opcional) ---------------------
 purge_packages() {
   [ "$PURGE_PACKAGES" != "1" ] && return
   if ! command -v apt >/dev/null 2>&1; then
@@ -86,6 +99,7 @@ main() {
   fi
   restore_or_remove_configs
   remove_font
+  revert_greeter
   purge_packages
   echo
   ok "Desinstalación completa."
