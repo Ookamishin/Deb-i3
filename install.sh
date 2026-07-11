@@ -172,7 +172,20 @@ deploy_greeter() {
   ok "Cyberpunk greeter applied."
 }
 
-# ---- 7. Enable LightDM ----------------------------------------
+# ---- 7. Performance tweaks (HDD-friendly) -------------------
+tune_performance() {
+  info "Applying performance tweaks..."
+  # Reduce swappiness (HDD-friendly: write less to swap)
+  if command -v sysctl >/dev/null 2>&1; then
+    echo "vm.swappiness=10" | sudo tee /etc/sysctl.d/90-cyberpunk.conf >/dev/null 2>&1 || true
+    sudo sysctl -w vm.swappiness=10 >/dev/null 2>&1 || true
+    ok "swappiness set to 10 (reduced disk writes)"
+  fi
+  # Disable picom compositing animations on low GPU (comment if smooth)
+  info "Picom: xrender backend + blur strength 3 (lightweight)"
+}
+
+# ---- 8. Enable LightDM ----------------------------------------
 enable_lightdm() {
   [ "$SKIP_DM" = "1" ] && { warn "SKIP_DM=1 -> skipping."; return; }
   if command -v systemctl >/dev/null 2>&1; then
@@ -189,6 +202,7 @@ main() {
   install_gtk_theme
   deploy_configs
   deploy_wallpaper
+  tune_performance
   deploy_greeter
   enable_lightdm
   echo

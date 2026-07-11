@@ -58,8 +58,8 @@ exec --no-startup-id udiskie --smart-tray
 # =============================================================
 #  Gaps & borders — breathing room for the neon glow
 # =============================================================
-gaps inner 10
-gaps outer 6
+gaps inner 8
+gaps outer 4
 default_border pixel 2
 default_floating_border pixel 2
 smart_gaps on
