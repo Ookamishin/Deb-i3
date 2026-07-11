@@ -32,7 +32,7 @@ inputbar {
 
 listview {
     margin:       10px 0 0 0;
-    lines:        5;
+    lines:        7;
     columns:      1;
     fixed-height: false;
     scrollbar:    false;
