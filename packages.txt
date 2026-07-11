@@ -28,7 +28,7 @@ network-manager-gnome
 pasystray
 pavucontrol
 blueman
-policykit-1-gnome
+lxpolkit
 gnome-keyring
 
 # Utilidades
@@ -36,7 +36,7 @@ lxappearance
 flameshot
 xclip
 brightnessctl
-xautolock
+xss-lock
 
 # Fuentes (repos)
 fonts-noto-color-emoji

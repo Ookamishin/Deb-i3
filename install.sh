@@ -39,7 +39,16 @@ install_packages() {
 
   info "Instalando paquetes desde packages.txt..."
   # Ignora comentarios y líneas vacías
-  mapfile -t PKGS < <(grep -vE '^\s*#|^\s*$' "$DOTFILES_DIR/packages.txt")
+  mapfile -t ALL_PKGS < <(grep -vE '^\s*#|^\s*$' "$DOTFILES_DIR/packages.txt")
+  # Omite paquetes sin candidato (p.ej. retirados de la distro) en lugar de abortar
+  PKGS=()
+  for p in "${ALL_PKGS[@]}"; do
+    if apt-cache policy "$p" 2>/dev/null | grep -q "Candidate: (none)"; then
+      warn "Paquete '$p' no disponible en esta distro -> omitido."
+    else
+      PKGS+=("$p")
+    fi
+  done
   sudo apt install -y "${PKGS[@]}"
   ok "Paquetes instalados."
 }

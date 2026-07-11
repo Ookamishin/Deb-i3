@@ -37,10 +37,11 @@ exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
-exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
+exec --no-startup-id lxpolkit
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
 exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/nord.png
-exec --no-startup-id xautolock -time 10 -locker "i3lock -c 2E3440"
+exec --no-startup-id xset s 600 600
+exec --no-startup-id xss-lock -- i3lock -c 2E3440
 
 # =============================================================
 #  Gaps & borders

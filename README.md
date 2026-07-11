@@ -18,7 +18,7 @@ Hecha a medida, sin dependencias de Arch/AUR: todo se instala desde repos oficia
 | Compositor         | picom                        |
 | Notificaciones     | dunst                        |
 | Wallpaper          | feh                          |
-| Bloqueo            | i3lock + xautolock           |
+| Bloqueo            | i3lock + xss-lock            |
 | Display manager    | LightDM + greeter Nord       |
 | Tema login         | lightdm-gtk-greeter (Nordic) |
 | Fuente             | JetBrainsMono Nerd Font      |
