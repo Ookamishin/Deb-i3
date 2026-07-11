@@ -65,6 +65,7 @@ backup más reciente**. Tus backups nunca se borran.
 |--------------------|-----------------------------------------------|
 | `PURGE_PACKAGES=1` | También desinstala los paquetes de packages.txt |
 | `REMOVE_FONT=1`    | También elimina la Nerd Font instalada        |
+| `REMOVE_THEME=1`   | Elimina el tema GTK Nordic (activado por defecto) |
 | `ASSUME_YES=1`     | No pide confirmación                           |
 
 ## Instalación manual (alternativa)

@@ -16,6 +16,7 @@ CONFIG_DST="$HOME/.config"
 #   ASSUME_YES=1     -> no pide confirmacion
 PURGE_PACKAGES="${PURGE_PACKAGES:-0}"
 REMOVE_FONT="${REMOVE_FONT:-0}"
+REMOVE_THEME="${REMOVE_THEME:-1}"
 ASSUME_YES="${ASSUME_YES:-0}"
 
 info()  { printf "\033[0;36m[*]\033[0m %s\n" "$1"; }
@@ -73,6 +74,15 @@ revert_greeter() {
   [ -f /usr/share/backgrounds/nord.png ] && sudo rm -f /usr/share/backgrounds/nord.png || true
 }
 
+# ---- 3b. Eliminar tema GTK Nordic (opcional) ----------------
+remove_gtk_theme() {
+  [ "$REMOVE_THEME" != "1" ] && return
+  if command -v sudo >/dev/null 2>&1 && [ -d /usr/share/themes/Nordic ]; then
+    sudo rm -rf /usr/share/themes/Nordic
+    ok "Tema GTK 'Nordic' eliminado."
+  fi
+}
+
 # ---- 4. Desinstalar paquetes (opcional) ---------------------
 purge_packages() {
   [ "$PURGE_PACKAGES" != "1" ] && return
@@ -100,6 +110,7 @@ main() {
   restore_or_remove_configs
   remove_font
   revert_greeter
+  remove_gtk_theme
   purge_packages
   echo
   ok "Desinstalación completa."
