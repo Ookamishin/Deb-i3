@@ -22,6 +22,7 @@ rofi
 polybar
 picom
 dunst
+firefox-esr
 
 # Sistema / bandeja
 network-manager-gnome

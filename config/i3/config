@@ -25,7 +25,7 @@ set $nord11 #BF616A
 # --- Default apps -------------------------------------------
 set $term kitty
 set $filemanager thunar
-set $browser x-www-browser
+set $browser firefox-esr
 set $launcher rofi -show drun
 
 # =============================================================
