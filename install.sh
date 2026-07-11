@@ -149,7 +149,9 @@ deploy_greeter() {
   info "Aplicando tema de login Nord (lightdm-gtk-greeter)..."
   # Copia el wallpaper a una ruta accesible por el greeter (usuario lightdm)
   if [ -f "$DOTFILES_DIR/wallpapers/nord.png" ]; then
+    sudo mkdir -p /usr/share/backgrounds
     sudo cp "$DOTFILES_DIR/wallpapers/nord.png" /usr/share/backgrounds/nord.png
+    sudo chmod 644 /usr/share/backgrounds/nord.png
   fi
   # Backup del greeter previo
   if [ -f "$dst" ] && [ ! -f "$dst.i3nord.bak" ]; then
