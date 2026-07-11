@@ -1,8 +1,13 @@
 # Arch packages for i3-cyberpunk-dotfiles
-# Base X / i3
-xorg
+# (use individual packages, not groups, to avoid pacman prompt)
+# Base X
+xorg-server
 xorg-xinit
 xorg-xrandr
+xorg-xset
+xorg-xrdb
+
+# i3
 i3-wm
 i3lock
 i3status
@@ -29,7 +34,7 @@ network-manager-applet
 pasystray
 pavucontrol
 blueman
-lxpolkit
+polkit-gnome
 gnome-keyring
 
 # Utilities
@@ -47,5 +52,5 @@ papirus-icon-theme
 # Cyberpunk extras
 cava
 btop
-neofetch
+fastfetch
 udiskie
