@@ -41,12 +41,11 @@ cava
 btop
 fastfetch
 udiskie
-greenclip
 redshift
 pulseaudio
 
-# Lock screen (i3lock-color from AUR)
-# yay -S i3lock-color
+# AUR packages (install with yay/paru after main install):
+#   yay -S greenclip i3lock-color
 
 # Utilities
 lxappearance

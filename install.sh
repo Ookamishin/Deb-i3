@@ -226,7 +226,7 @@ main() {
   enable_lightdm
   echo
   ok "Installation complete."
-  [ "$DISTRO" = "arch" ] && info "Optional AUR: yay -S i3lock-color (for lockscreen effects)"
+  [ "$DISTRO" = "arch" ] && info "AUR packages: yay -S greenclip i3lock-color"
   info "Reboot and select 'i3' in LightDM."
   info "Set fish as shell: chsh -s /usr/bin/fish"
 }
