@@ -1,10 +1,10 @@
 * {
     bg:         #0a0e14;
-    bg-alt:     #111820;
-    bg-hl:      #1a2430;
+    bg-alt:     #1a1b2e;
+    bg-hl:      #24283b;
     fg:         #c0caf5;
     fg-alt:     #565f89;
-    fg-br:      #ffffff;
+    fg-br:      #e0e8ff;
     cyan:       #00f0ff;
     pink:       #ff007f;
     purple:     #7c3aed;
@@ -21,12 +21,12 @@ window {
     width:          540;
     border-radius:  10px;
     background-color: @bg;
-    border:         2px;
+    border:         1px;
     border-color:   @cyan;
 }
 
 mainbox {
-    padding:    12px;
+    padding:    10px;
 }
 
 inputbar {
@@ -49,7 +49,7 @@ entry {
 }
 
 listview {
-    margin:       12px 0 0 0;
+    margin:       10px 0 0 0;
     lines:        8;
     columns:      1;
     fixed-height: false;
@@ -59,13 +59,15 @@ listview {
 element {
     padding:        8px 10px;
     spacing:        10px;
-    border-radius:  6px;
+    border-radius:  0;
     text-color:     @fg;
+    border:         0px 0px 0px 0px;
+    border-color:   @cyan;
 }
 
 element selected {
     background-color: @bg-hl;
-    text-color:       @cyan;
+    text-color:       @fg-br;
     border:           1px;
     border-color:     @purple;
 }

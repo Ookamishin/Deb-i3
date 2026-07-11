@@ -1,6 +1,6 @@
 # =============================================================
-#  btop theme — Cyberpunk Neon
-#  Based on: void black + cyan/pink/purple accents
+#  btop theme — Cyberpunk (strict palette)
+#  Surfaces: void/panel/elevated · Accents: cyan/pink only
 # =============================================================
 
 [theme]
@@ -9,7 +9,7 @@ main_fg = "c0caf5"
 
 title = "00f0ff"
 hi_fg = "e0e8ff"
-hi_bg = "1a2430"
+hi_bg = "24283b"
 
 selected_bg = "7c3aed"
 selected_fg = "e0e8ff"
@@ -19,7 +19,7 @@ inactive_fg = "565f89"
 graph_line = "00f0ff"
 graph_hi = "00f0ff"
 graph_low = "ff007f"
-graph_bg = "111820"
+graph_bg = "1a1b2e"
 
 proc_cpu = "00f0ff"
 proc_mem = "ff007f"
@@ -32,10 +32,10 @@ cpu_core = "00f0ff"
 cpu_user = "7c3aed"
 cpu_system = "ff007f"
 cpu_idle = "565f89"
-cpu_nice = "1a2430"
+cpu_nice = "24283b"
 cpu_iowait = "ffd700"
-cpu_irq = "ff6600"
-cpu_softirq = "ff0040"
-cpu_steal = "111820"
+cpu_irq = "ff0040"
+cpu_softirq = "1a1b2e"
+cpu_steal = "1a1b2e"
 cpu_guest = "00ff41"
-cpu_guest_nice = "33ff66"
+cpu_guest_nice = "00ff41"

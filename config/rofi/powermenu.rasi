@@ -1,6 +1,6 @@
 * {
     bg:     #0a0e14;
-    bg-alt: #111820;
+    bg-alt: #1a1b2e;
     fg:     #c0caf5;
     fg-alt: #565f89;
     cyan:   #00f0ff;
@@ -12,26 +12,26 @@
 
 window {
     location:       center;
-    width:          260;
+    width:          240;
     border-radius:  10px;
     background-color: @bg;
-    border:         2px;
+    border:         1px;
     border-color:   @cyan;
 }
 
 mainbox {
-    padding:    12px;
+    padding:    10px;
 }
 
 inputbar {
     background-color: @bg-alt;
     border-radius:    8px;
-    padding:          10px 12px;
+    padding:          8px 10px;
     text-color:       @fg;
 }
 
 listview {
-    margin:       12px 0 0 0;
+    margin:       10px 0 0 0;
     lines:        5;
     columns:      1;
     fixed-height: false;

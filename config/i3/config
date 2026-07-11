@@ -13,10 +13,10 @@ set $powermenu ~/.config/i3/scripts/powermenu.sh
 set $lock ~/.config/i3/scripts/lock.sh
 set $wallpaper ~/.config/i3/scripts/wallpaper.sh
 
-# ---- Colors ----
+# ---- Colors (Tokyo Night Storm + Cyberpunk neons) ----
 set $bg      #0a0e14
-set $bg-alt  #111820
-set $bg-hl   #1a2430
+set $bg-alt  #1a1b2e
+set $bg-hl   #24283b
 set $fg      #c0caf5
 set $fg-alt  #565f89
 set $fg-br   #e0e8ff
