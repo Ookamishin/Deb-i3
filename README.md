@@ -15,6 +15,10 @@ Optimizado para bajo consumo de RAM (~300 MB en idle) con máximo impacto visual
 | Barra              | polybar        | Workspaces + iconos Nerd Font         |
 | Lanzador           | rofi           | Tema cyberpunk con border cian        |
 | Notificaciones     | dunst          | Esquinas redondeadas, frames neón     |
+| Visualizador audio | cava           | Barras gradiente pink→purple→cyan     |
+| Monitor sistema    | btop           | Tema cyberpunk con todos los recursos |
+| Info sistema       | neofetch       | ASCII cyberpunk al abrir terminal     |
+| Montaje USB        | udiskie        | Auto-montaje con icono en bandeja     |
 | Wallpaper          | feh            | Cyberpunk art fijo                    |
 | Bloqueo            | i3lock         | Pantalla negra #0a0e14               |
 | Display manager    | LightDM        | Greeter cyberpunk                     |
@@ -86,6 +90,8 @@ Elimina configs y restaura backup más reciente. Opciones:
 | `Super + E`               | Gestor de archivos (thunar)   |
 | `Super + B`               | Navegador                     |
 | `Super + Q`               | Cerrar ventana                |
+| `Super + Ctrl + C`        | Visualizador audio (cava)     |
+| `Super + Ctrl + B`        | Monitor sistema (btop)        |
 | `Super + F`               | Pantalla completa             |
 | `Super + Space`           | Flotante on/off               |
 | `Super + 1..0`            | Cambiar workspace             |
@@ -112,7 +118,14 @@ i3-cyberpunk-dotfiles/
 │   │   ├── config.rasi        # Lanzador
 │   │   └── cyberpunk.rasi     # Tema del lanzador
 │   ├── dunst/dunstrc          # Notificaciones
-│   └── kitty/kitty.conf       # Terminal
+│   ├── kitty/kitty.conf       # Terminal
+│   ├── cava/config            # Visualizador de audio
+│   ├── btop/
+│   │   ├── btop.conf          # Monitor del sistema
+│   │   └── themes/cyberpunk.theme  # Tema personalizado
+│   └── neofetch/
+│       ├── config.conf        # Info de sistema
+│       └── ascii.txt          # Logo ASCII cyberpunk
 ├── system/
 │   └── lightdm-gtk-greeter.conf
 ├── wallpapers/                # Coloca tu cyberpunk.png aquí
@@ -133,6 +146,21 @@ El compositor **picom** genera el "glassmorphism" cyberpunk:
 - **Transparencia**: ventanas inactivas al 88%, activas al 96%
 
 El efecto combinado: paneles flotantes de vidrio oscuro con bordes de luz cian.
+
+## Capas cyberpunk adicionales
+
+| Herramienta | Atajo              | Visual                          |
+|-------------|--------------------|---------------------------------|
+| **cava**    | `Super+Ctrl+C`     | Barras de audio con gradiente pink→purple→cyan, fondo #0a0e14 |
+| **btop**    | `Super+Ctrl+B`     | Monitor CPU/RAM/Net con tema personalizado (mismos colores del sistema) |
+| **neofetch**| (auto al abrir terminal) | Logo ASCII cyberpunk + info del sistema en neón |
+| **udiskie** | (automático)       | Icono en bandeja del sistema para montar USBs |
+
+## Workflow
+
+- **Resolución**: si Hyper-V arranca en 1024x768, descomenta la línea `xrandr` en `config/i3/config:54`
+- **USBs**: `udiskie` monta automáticamente en segundo plano con icono en bandeja
+- **Capturas**: `Print` = pantalla completa, `Super+Print` = selección de área (flameshot)
 
 ## Tipografía
 

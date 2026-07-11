@@ -1,0 +1,41 @@
+# =============================================================
+#  btop theme — Cyberpunk Neon
+#  Based on: void black + cyan/pink/purple accents
+# =============================================================
+
+[theme]
+main_bg = "0a0e14"
+main_fg = "c0caf5"
+
+title = "00f0ff"
+hi_fg = "e0e8ff"
+hi_bg = "1a2430"
+
+selected_bg = "7c3aed"
+selected_fg = "e0e8ff"
+
+inactive_fg = "565f89"
+
+graph_line = "00f0ff"
+graph_hi = "00f0ff"
+graph_low = "ff007f"
+graph_bg = "111820"
+
+proc_cpu = "00f0ff"
+proc_mem = "ff007f"
+
+temp_hi = "ffd700"
+temp_crit = "ff0040"
+temp_low = "00ff41"
+
+cpu_core = "00f0ff"
+cpu_user = "7c3aed"
+cpu_system = "ff007f"
+cpu_idle = "565f89"
+cpu_nice = "1a2430"
+cpu_iowait = "ffd700"
+cpu_irq = "ff6600"
+cpu_softirq = "ff0040"
+cpu_steal = "111820"
+cpu_guest = "00ff41"
+cpu_guest_nice = "33ff66"

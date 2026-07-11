@@ -49,6 +49,9 @@ exec --no-startup-id gnome-keyring-daemon --start --components=secrets
 exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/cyberpunk.png
 exec --no-startup-id xset s 600 600
 exec --no-startup-id xss-lock -- i3lock -c 0a0e14
+exec --no-startup-id udiskie --smart-tray
+# Uncomment if Hyper-V resolution is stuck at 1024x768:
+# exec_always --no-startup-id xrandr --output Virtual-1 --mode 1920x1080
 
 # =============================================================
 #  Gaps & borders — breathing room for the neon glow
@@ -68,6 +71,8 @@ bindsym $mod+d exec $launcher
 bindsym $mod+e exec $filemanager
 bindsym $mod+b exec $browser
 bindsym $mod+q kill
+bindsym $mod+Ctrl+c exec $term -e cava
+bindsym $mod+Ctrl+b exec $term -e btop
 
 bindsym Print exec --no-startup-id flameshot full
 bindsym $mod+Print exec --no-startup-id flameshot gui

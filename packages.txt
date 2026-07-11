@@ -39,6 +39,12 @@ xclip
 brightnessctl
 xss-lock
 
+# Cyberpunk extras (visual layers)
+cava
+btop
+neofetch
+udiskie
+
 # Fonts (repos)
 fonts-noto-color-emoji
 fonts-jetbrains-mono
