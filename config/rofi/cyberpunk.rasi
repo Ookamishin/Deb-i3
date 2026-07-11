@@ -46,7 +46,6 @@ entry {
     placeholder:        "  Launch...";
     placeholder-color:  @fg-alt;
     text-color:         @fg-br;
-    font:               "JetBrainsMono Nerd Font 12";
 }
 
 listview {
