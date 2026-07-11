@@ -13,14 +13,14 @@
 window {
     location:       center;
     width:          240;
-    border-radius:  10px;
+    border-radius:  12px;
     background-color: @bg;
     border:         1px;
     border-color:   @cyan;
 }
 
 mainbox {
-    padding:    10px;
+    padding:    8px;
 }
 
 inputbar {
@@ -31,11 +31,12 @@ inputbar {
 }
 
 listview {
-    margin:       10px 0 0 0;
+    margin:       8px 0 0 0;
     lines:        7;
     columns:      1;
     fixed-height: false;
     scrollbar:    false;
+    spacing:      2px;
 }
 
 element {
@@ -47,4 +48,6 @@ element {
 element selected {
     background-color: @bg-alt;
     text-color:       @cyan;
+    border:           0px 0px 0px 2px;
+    border-color:     @cyan;
 }
